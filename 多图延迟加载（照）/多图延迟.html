@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body,html{
+            height:3000px;
+        }
+        .box2{
+            margin-left: 420px;
+        }
+        p{
+            /*display: block;*/
+            /*text-align: center;*/
+            /*margin-right: 50px;*/
+            width:400px;
+            height:260px;
+            background: url('img2/default.gif') center center no-repeat #e1e1e1;
+        }
+        p img{
+            width:100%;
+            height: 100%;;
+        }
+    </style>
+</head>
+<body>
+<div style="height: 1000px"></div>
+<div class="box2">
+<p><img realImg="img2/6.jpg" alt=""/></p>
+
+<p><img realImg="img2/7.jpg" alt=""/></p>
+
+<p><img realImg="img2/8.jpg" alt=""/></p>
+
+<p><img realImg="img2/9.jpg" alt=""/></p>
+</div>
+</body>
+<script>
+var aImg=document.getElementsByTagName('img');
+    window.onscroll=function(){
+        var scrollT=document.documentElement.scrollTop||document.body.scrollTop;
+        var clientH=document.documentElement.clientHeight||document.body.clientHeight;
+        var scrollBottom=scrollT+clientH;
+        for(var i=0;i<aImg.length;i++){
+            var imgposi=aImg[i].offsetTop+aImg[i].offsetHeight;
+            if(imgposi<=scrollBottom-100){
+                lazyImg(aImg[i]);
+            }
+        }
+    };
+    function lazyImg(img){
+        if(img.loaded){
+            return;
+        }
+        var tempImg=new Image;
+        tempImg.src=img.getAttribute('realImg');
+        tempImg.onload=function(){
+            img.src=this.src;
+            tempImg=null;
+            img.loaded=true;
+        };
+        tempImg.onerror=function(){
+
+            tempImg=null;
+            img.loaded=true;
+        };
+    }
+</script>
+</html>
