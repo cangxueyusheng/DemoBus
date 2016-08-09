@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        div{
+            margin: 50px auto;
+            width:900px;
+        }
+        ul{
+            float: left;
+            margin: 10px;
+            width: 260px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <ul></ul>
+    <ul></ul>
+    <ul></ul>
+</div>
+</body>
+<script src=".././1.utils/utils-3.js"></script>
+<script>
+    var aUl=document.getElementsByTagName('ul');
+    function createLi(){
+        var oLi=document.createElement('li');
+        oLi.style.height=utils.rnd(30,80)+'px';
+        oLi.style.backgroundColor='rgb('+utils.rnd(0,255)+','+utils.rnd(0,255)+','+utils.rnd(0,255)+')';
+        return oLi;
+    }
+    function li50(){
+        for(var i=0;i<50;i++){
+            var oLi=createLi();
+            var ary=utils.listToArray(aUl);
+            ary.sort(function(a,b){
+                return utils.getCss(a,'height')-utils.getCss(b,'height');
+            });
+            ary[0].appendChild(oLi);
+        }
+    }
+    li50();
+    window.onscroll=function(){
+        var scrollBottom=utils.win('scrollTop')+utils.win('clientHeight');
+        if(scrollBottom>=document.body.scrollHeight-500){
+            li50();
+        }
+    }
+</script>
+</html>

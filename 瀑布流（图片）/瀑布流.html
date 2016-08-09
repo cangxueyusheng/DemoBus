@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        /*body,html{
+            height: 1000%;
+        }*/
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        div{
+            width: 900px;
+            margin: 0 auto;
+        }
+        ul{
+            width: 260px;
+            margin: 10px;
+            /*height: 10px;*/
+            /*border: 1px solid red;*/
+            float: left;
+        }
+        li{
+            margin-top: 10px ;
+            background: url("img2/default.gif") center center no-repeat #e1e1e1;
+        }
+        li img{
+            width: 100%;
+            height:100%;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <ul></ul>
+    <ul></ul>
+    <ul></ul>
+</div>
+<div id="box">top</div>
+<script src="utils-3.js"></script>
+<script>
+    //思路，动态创建li（高度随机，背景色随机），分别插入ul中最短的（类数组转数组，sort排序）
+//    var oDiv=document.getElementsByTagName('div')[0];
+//    var aUl=oDiv.getElementsByTagName('ul');
+//    function createLi(){
+//        var oLi=document.createElement('li');//先动态创建一个li元素
+//        oLi.style.height=utils.rnd(100,300)+'px';//设定li的高度为100--300之间的随机数
+//        oLi.style.backgroundColor='rgb('+utils.rnd(0,255)+','+utils.rnd(0,255)+','+utils.rnd(0,255)+')';//设定li的背景颜色为rgb的随机数
+//        return oLi;//把创建好的li返回出来
+//    }
+//    function li50(){
+//        for(var i=0;i<50;i++){
+//            var oLi=createLi();//动态创建50个li
+//            var ary=utils.listToArray(aUl);//把ul转成数组
+//            ary.sort(function (a, b) {//对ul进行高度从小到大的排序
+//                return utils.getCss(a,'height')-utils.getCss(b,'height');
+//            });
+//            ary[0].appendChild(oLi);//把li插入到ul中
+//        }
+//    }
+//    li50();
+//    window.onscroll= function () {//触发滑轮事件
+//        var scrollBottom=utils.win('scrollTop')+utils.win('clientHeight');//scrollBottom=卷去的高度+可视区的高度
+//        if(scrollBottom>=document.body.scrollHeight-500){//判断如果scrollBottom>=（真实内容的高度 -500）即隐藏内容还有500px高度是就调用li50（）
+//            li50();//调用li50（）；
+//        }
+//    }
+//    var oDiv=document.getElementsByTagName('div')[0];
+//    var aUl=oDiv.getElementsByTagName('ul');
+//    function createLi(){
+//        var oLi=document.createElement('li');
+//        oLi.style.height=utils.rnd(100,300)+'px';
+//        oLi.style.backgroundColor='rgb('+utils.rnd(0,255)+','+utils.rnd(0,255)+','+utils.rnd(0,255)+')';
+//        return oLi;
+//    }
+//    function li50(){
+//        for(var i=0;i<50;i++){
+//            var oLi=createLi();
+//            var ary=utils.listToArray(aUl);
+//            ary.sort(function (a, b) {
+//                return utils.getCss(a,'height')-utils.getCss(b,'height');
+//            });
+//            ary[0].appendChild(oLi);
+//        }
+//    }
+//    li50();
+//    window.onscroll= function () {
+//        var scrollBottom=utils.win('scrollTop')+utils.win('clientHeight');
+//        if(scrollBottom>document.body.scrollHeight-500){
+//            li50();
+//        }
+//    }
+    var oDiv=document.getElementsByTagName('div')[0];
+    var aUl=oDiv.getElementsByTagName('ul');
+    var aImg=document.getElementsByTagName('img');
+    function createLi(){
+        var oLi=document.createElement('li');
+        var oImg=document.createElement('img');
+        //oImg.src='img2/'+utils.rnd(1,10)+'.jpg';
+        oImg.setAttribute('realImg','img2/'+utils.rnd(1,10)+'.jpg');
+        //console.log(oDiv);
+        oLi.appendChild(oImg);
+        oImg.style.height=utils.rnd(100,300)+'px';
+        return oLi;
+    }
+    function li50(){
+        for(var i=0;i<50;i++){
+            var oLi=createLi();
+            var ary=utils.listToArray(aUl);
+            ary.sort(function (a, b) {
+                return utils.getCss(a,'height')-utils.getCss(b,'height');
+            });
+            ary[0].appendChild(oLi);
+        }
+    }
+    li50();
+    showImg();
+    function showImg(){
+        var scrollBottom=utils.win('scrollTop')+utils.win('clientHeight');
+        for(var i=0; i<aImg.length; i++){
+            var imgPosition=utils.offSet(aImg[i]).top+utils.getCss(aImg[i],'height');
+            if(imgPosition<=scrollBottom){
+                lazyImg(aImg[i]);
+            }
+        }
+    }
+    window.onscroll= function () {
+        var scrollBottom=utils.win('scrollTop')+utils.win('clientHeight');
+        showImg();
+        if(scrollBottom>=document.body.scrollHeight-500){
+            li50();
+        }
+    }
+    function lazyImg(img){
+        if(img.loaded){
+            return;
+        }
+        var tmpImg=new Image;
+        tmpImg.src=img.getAttribute('realImg');
+        tmpImg.onload=function(){
+            img.src=this.src;
+            //img.parentNode.style.height='auto';
+            tmpImg=null;
+            img.loaded=true;
+        };
+        tmpImg.onerror=function(){
+            tmpImg=null;
+            img.loaded=true;
+        }
+    }
+</script>
+</body>
+</html>
