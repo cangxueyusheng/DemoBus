@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        .box {
+            position: relative;
+            margin: 100px auto;
+            width: 1000px;
+            height: 300px;
+            background: url("img/default.gif") center center no-repeat #e1e1e1;
+        }
+
+        .box .bannerBox div {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 0;
+            opacity: 0;
+            filter: alpha(opacity:0);
+
+        }
+
+        .box .bannerBox img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .box ul {
+            position: absolute;
+            left: 50%;
+            margin-left: -50px;
+            bottom: 10px;
+            z-index: 10;
+        }
+
+        .box ul li {
+            float: left;
+            margin-left: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 100%;
+            background: lightblue;
+        }
+
+        .box ul li.bg {
+            background: red;
+        }
+
+        .box a {
+            position: absolute;
+            top: 50%;
+            margin-top: -27px;
+            width: 30px;
+            height: 45px;
+            background: url("img/pre.png");
+            opacity: .3;
+            filter: alpha(opacity=30);
+            z-index: 10;
+            display: none;
+        }
+
+        .box a:hover {
+            opacity: 1;
+            filter: alpha(opacity=100);
+        }
+
+        .box .btnL {
+            background-position: 0 0;
+            left: 30px;
+        }
+
+        .box .btnR {
+            background-position: -50px 0;
+            right: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <div class="bannerBox">
+        <div><img src="img/banner1.jpg" alt=""/></div>
+        <div><img src="img/banner2.jpg" alt=""/></div>
+        <div><img src="img/banner3.jpg" alt=""/></div>
+        <div><img src="img/banner4.jpg" alt=""/></div>
+    </div>
+    <ul>
+        <li class="bg"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <a href="javascript:;" class="btnL"></a>
+    <a href="javascript:;" class="btnR"></a>
+</div>
+</body>
+<script src="js/utils.js"></script>
+<script src="js/move.js"></script>
+<script src="js/banner.js"></script>
+<script></script>
+<script></script>
+</html>
